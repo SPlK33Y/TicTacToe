@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Tic Tac Toe</title>
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+
+    <div style="display: flex;">
+      <div id="cell_0_0" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(0, 0)"></div>
+      <div id="cell_0_1" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(0, 1)"></div>
+      <div id="cell_0_2" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(0, 2)"></div>
+    </div>
+    <div style="display: flex;">
+      <div id="cell_1_0" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(1, 0)"></div>
+      <div id="cell_1_1" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(1, 1)"></div>
+      <div id="cell_1_2" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(1, 2)"></div>
+    </div>
+    <div style="display: flex;">
+      <div id="cell_2_0" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(2, 0)"></div>
+      <div id="cell_2_1" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(2, 1)"></div>
+      <div id="cell_2_2" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(2, 2)"></div>
+    </div>
+
+    <script>
+
+function printBoard() {
+  console.table(board);
+}
+
+function    isBoardFull() {
+  for (y = 0; y < board.length; y++) {
+    for (x = 0; x < board[y].length; x++) {
+      if (board[y][x] === '-') {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+function hasWinningSolution() {
+
+  for (x = 0; x < board.length; ++x) {
+    if (hasVerticalSolution(x)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function hasVerticalSolution(x) {
+  var player = null;
+
+  for (y = 0; y < board.length; ++y) {
+    if (board[y][x] === '-') {
+      return false;
+    }
+
+    if (!player) {
+      player = board[y][x];
+    }
+    else if (board[y][x] !== player) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+var board = [
+  ['-', '-', '-'],
+  ['-', '-', '-'],
+  ['-', '-', '-']
+];
+
+var quitGame = true;
+
+printBoard();
+
+var players = ['X', 'O'];
+var currentPlayerIndex = 0;
+
+function playMove(y, x) {
+  var pon = players[currentPlayerIndex];
+
+  if (board[y][x] === '-') {
+    board[y][x] = pon;
+    document.getElementById(`cell_${y}_${x}`).innerHTML = players[currentPlayerIndex];
+
+    if (currentPlayerIndex < players.length - 1) {
+      currentPlayerIndex++;
+    }
+    else {
+      currentPlayerIndex = 0;
+    }
+  }
+  else {
+    alert('coordinate already used !!');
+  }
+
+  if (hasWinningSolution()) {
+    alert('WE HAVE A WINNER !!');
+    document.location.reload();
+    return;
+  }
+
+  if (isBoardFull()) {
+    alert('GAME OVER');
+    document.location.reload();
+  }
+}
+
+console.log('GAME OVER');
+
+    </script>
+
+  </body>
+</html>

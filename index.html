@@ -66,7 +66,7 @@
       }
 
       .board-cell:hover {
-        background-color: #ff000022;
+        background-color: #534e4e10;
         cursor: pointer;
       }
 
@@ -91,12 +91,12 @@
 
       .alert-container {
         font-family: "Jersey 15", sans-serif;
-        font-size: 40px;
+        font-size: 50px;
         background-color: #ff000099;
         padding: 30px;
         border: solid 5px #000;
         border-radius: 10px;
-        margin: 20px;
+        margin: 30px;
       }
 
       .hidden {
@@ -130,9 +130,9 @@
       </div>
     </div>
 
-    <div id="alert-div" class="alert-container hidden">
+   <div id="alert-div" class="alert-container hidden">
       Test alert message
-    </div>
+    </div> 
 
   <script>
 
@@ -289,19 +289,27 @@ function playMove(y, x) {
   }
   else {
     // alert('coordinate already used !!');
-    displayAlert('Coordinate already used !!', 2000);
+    displayAlert('Coordinate already used !!', 1000);
   }
 
   if (hasWinningSolution()) {
-    alert('WE HAVE A WINNER !!');
-    document.location.reload();
+    displayAlert('WE HAVE A WINNER !!', 1500);
+    reloadPage();
     return;
   }
 
   if (isBoardFull()) {
-    alert('GAME OVER');
-    document.location.reload();
+   displayAlert('Game Over !!', 1500);
+    reloadPage();
+    return;
   }
+}
+
+function   reloadPage() {
+  setTimeout(() => {
+    console.log("reload");
+    document.location.reload();
+  }, 1500); 
 }
 
 function    displayAlert(message, dismissAfter) {
@@ -316,7 +324,7 @@ function    displayAlert(message, dismissAfter) {
 function    dismissAlert(timeout) {
   setTimeout(() => {
     alertDiv.classList.add('hidden');
-  }, timeout ?? 2000);
+  }, timeout ?? 1000);
 }
 
     </script>

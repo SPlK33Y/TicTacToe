@@ -1,30 +1,146 @@
 <!doctype html>
 <html lang="en">
   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <title>Tic Tac Toe</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Tic Tac Toe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
+
+    <style>
+
+      h1 {
+        color: #0000ff;
+      }
+
+      html {
+        height: 100%;
+        background-image: url(images/background.svg);
+        background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: cover;
+      }
+
+      .jersey-15-regular {
+        font-family: "Jersey 15", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .title-container {
+        background-image: url(images/title-background.svg);
+        background-repeat: no-repeat;
+
+        width: 600px;
+        height: 121px;
+
+        margin: 30px auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .title-image {
+        width: 400px;
+      }
+
+      .board-container {
+        background-image: url(images/board.svg);
+        background-repeat: no-repeat;
+        margin: auto;
+        width: 600px;
+        height: 600px;
+      }
+
+      .board-row {
+        display: flex;
+      }
+
+      .board-cell {
+        width: 200px;
+        height: 200px;
+      }
+
+      .board-cell:hover {
+        background-color: #ff000022;
+        cursor: pointer;
+      }
+
+
+      .pon {
+        width: 160px;
+        height: 160px;
+        margin: 20px;
+
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 70%;
+      }
+
+      .pon-cross {
+        background-image: url(images/cross.svg);
+      }
+
+      .pon-circle {
+        background-image: url(images/circle.svg);
+      }
+
+      .alert-container {
+        font-family: "Jersey 15", sans-serif;
+        font-size: 40px;
+        background-color: #ff000099;
+        padding: 30px;
+        border: solid 5px #000;
+        border-radius: 10px;
+        margin: 20px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+    </style>
+
   </head>
   <body>
-    <h1>Tic Tac Toe 2</h1>
 
-    <div style="display: flex;">
-      <div id="cell_0_0" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(0, 0)"></div>
-      <div id="cell_0_1" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(0, 1)"></div>
-      <div id="cell_0_2" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(0, 2)"></div>
-    </div>
-    <div style="display: flex;">
-      <div id="cell_1_0" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(1, 0)"></div>
-      <div id="cell_1_1" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(1, 1)"></div>
-      <div id="cell_1_2" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(1, 2)"></div>
-    </div>
-    <div style="display: flex;">
-      <div id="cell_2_0" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(2, 0)"></div>
-      <div id="cell_2_1" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(2, 1)"></div>
-      <div id="cell_2_2" style="width: 30px; height: 30px; border: solid 1px #000;" onclick="playMove(2, 2)"></div>
+    <div class="title-container">
+      <img class="title-image" src="images/title.svg">
     </div>
 
-    <script>
+    <div class="board-container">
+      <div class="board-row">
+        <div id="cell_0_0" class="board-cell" onclick="playMove(0, 0)"></div>
+        <div id="cell_0_1" class="board-cell" onclick="playMove(0, 1)"></div>
+        <div id="cell_0_2" class="board-cell" onclick="playMove(0, 2)"></div>
+      </div>
+      <div class="board-row">
+        <div id="cell_1_0" class="board-cell" onclick="playMove(1, 0)"></div>
+        <div id="cell_1_1" class="board-cell" onclick="playMove(1, 1)"></div>
+        <div id="cell_1_2" class="board-cell" onclick="playMove(1, 2)"></div>
+      </div>
+      <div class="board-row">
+        <div id="cell_2_0" class="board-cell" onclick="playMove(2, 0)"></div>
+        <div id="cell_2_1" class="board-cell" onclick="playMove(2, 1)"></div>
+        <div id="cell_2_2" class="board-cell" onclick="playMove(2, 2)"></div>
+      </div>
+    </div>
+
+    <div id="alert-div" class="alert-container hidden">
+      Test alert message
+    </div>
+
+  <script>
+
+var alertDiv = null;
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  alertDiv = document.getElementById('alert-div');
+});
 
 function printBoard() {
   console.table(board);
@@ -138,8 +254,6 @@ function hasDiagonalSolution2() {
   }
 
   return true;
-
-
 }
 
 var board = [
@@ -152,7 +266,10 @@ var quitGame = true;
 
 printBoard();
 
-var players = ['X', 'O'];
+var players = [
+  '<div class="pon pon-cross">',
+  '<div class="pon pon-circle">',
+];
 var currentPlayerIndex = 0;
 
 function playMove(y, x) {
@@ -160,6 +277,7 @@ function playMove(y, x) {
 
   if (board[y][x] === '-') {
     board[y][x] = pon;
+
     document.getElementById(`cell_${y}_${x}`).innerHTML = players[currentPlayerIndex];
 
     if (currentPlayerIndex < players.length - 1) {
@@ -170,7 +288,8 @@ function playMove(y, x) {
     }
   }
   else {
-    alert('coordinate already used !!');
+    // alert('coordinate already used !!');
+    displayAlert('Coordinate already used !!', 2000);
   }
 
   if (hasWinningSolution()) {
@@ -185,7 +304,20 @@ function playMove(y, x) {
   }
 }
 
-console.log('GAME OVER');
+function    displayAlert(message, dismissAfter) {
+  alertDiv.innerHTML = message;
+  alertDiv.classList.remove('hidden');
+
+  if (dismissAfter) {
+    dismissAlert(dismissAfter);
+  }
+}
+
+function    dismissAlert(timeout) {
+  setTimeout(() => {
+    alertDiv.classList.add('hidden');
+  }, timeout ?? 2000);
+}
 
     </script>
 
